@@ -9,22 +9,25 @@ from PyQt6.QtGui import QBrush, QColor, QPainter, QPen
 class Window(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.tf = False
+        self.circles = []
         uic.loadUi("UI.ui", self)
         self.pushButton.clicked.connect(self.a)
 
     def a(self):
-        self.tf = True
+        radius = random.randint(1, 100)
+        x = random.randint(0, self.width())
+        y = random.randint(0, self.height())
+        center = QPointF(x, y)
+        self.circles.append((center, radius))
         self.update()
 
     def paintEvent(self, event):
-        if self.tf == True:
-            painter = QPainter(self)
-            pen = QPen(QColor("yellow"), 3)
-            painter.setPen(pen)
-            painter.setBrush(QBrush(QColor("yellow")))
-            center = QPointF(200, 200)
-            radius = random.randint(10, 100)
+        painter = QPainter(self)
+        pen = QPen(QColor("yellow"), 3)
+        painter.setPen(pen)
+        painter.setBrush(QBrush(QColor("yellow")))
+
+        for center, radius in self.circles:
             painter.drawEllipse(center, radius, radius)
 
 
