@@ -6,11 +6,10 @@ from PyQt6.QtGui import QBrush, QColor, QPainter, QPen
 from ui import Ui
 
 
-class Window(QMainWindow):
+class Window(QMainWindow, Ui):
     def __init__(self):
         super().__init__()
         self.circles = []
-        self.ui = Ui()
         self.ui.setupUi(self)
         self.ui.pushButton.clicked.connect(self.a)
 
